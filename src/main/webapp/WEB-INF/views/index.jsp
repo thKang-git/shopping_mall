@@ -1,132 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="EUC-KR">
     <title>Index page</title>
+
+
+<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">--%>
+<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">--%>
+<%--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>--%>
+    <link href="${path}/shopping/shoplist.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="${path}/shopping/shoplist.js?v=<%=System.currentTimeMillis() %>"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <script>
-    /*
-	Add to cart fly effect with jQuery. - May 05, 2013
-	(c) 2013 @ElmahdiMahmoud - fikra-masri.by
-	license: https://www.opensource.org/licenses/mit-license.php
-*/
-
-    $('.add-to-cart').on('click', function () {
-        var cart = $('.shopping-cart');
-        var imgtodrag = $(this).parent('.item').find("img").eq(0);
-        if (imgtodrag) {
-            var imgclone = imgtodrag.clone()
-                .offset({
-                    top: imgtodrag.offset().top,
-                    left: imgtodrag.offset().left
-                })
-                .css({
-                    'opacity': '0.5',
-                    'position': 'absolute',
-                    'height': '150px',
-                    'width': '150px',
-                    'z-index': '100'
-                })
-                .appendTo($('body'))
-                .animate({
-                    'top': cart.offset().top + 10,
-                    'left': cart.offset().left + 10,
-                    'width': 75,
-                    'height': 75
-                }, 1000, 'easeInOutExpo');
-
-            setTimeout(function () {
-                cart.effect("shake", {
-                    times: 2
-                }, 200);
-            }, 1500);
-
-            imgclone.animate({
-                'width': 0,
-                'height': 0
-            }, function () {
-                $(this).detach()
-            });
-        }
+    $(".add-to-cart").on('click', function () {
+        alert("da");
     });
 </script>
 <body>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-    body {
-        background-color: #F2EEE9;
-        font: normal 13px/1.5 Georgia, Serif;
-        color: #333;
-    }
-    .wrapper {
-        width: 705px;
-        margin: 20px auto;
-        padding: 20px;
-    }
-    h1 {
-        display: inline-block;
-        background-color: #333;
-        color: #fff;
-        font-size: 20px;
-        font-weight: normal;
-        text-transform: uppercase;
-        padding: 4px 20px;
-        float: left;
-    }
-    .clear {
-        clear: both;
-    }
-    .items {
-        display: block;
-        margin: 20px 0;
-    }
-    .item {
-        background-color: #fff;
-        float: left;
-        margin: 0 10px 10px 0;
-        width: 205px;
-        padding: 10px;
-        height: 290px;
-    }
-    .item img {
-        display: block;
-        margin: auto;
-    }
-    h2 {
-        font-size: 16px;
-        display: block;
-        border-bottom: 1px solid #ccc;
-        margin: 0 0 10px 0;
-        padding: 0 0 5px 0;
-    }
-    button {
-        border: 1px solid #722A1B;
-        padding: 4px 14px;
-        background-color: #fff;
-        color: #722A1B;
-        text-transform: uppercase;
-        float: right;
-        margin: 5px 0;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    span {
-        float: right;
-    }
-    .shopping-cart {
-        display: inline-block;
-        background: url('http://cdn1.iconfinder.com/data/icons/jigsoar-icons/24/_cart.png') no-repeat 0 0;
-        width: 24px;
-        height: 24px;
-        margin: 0 10px 0 0;
-    }
-</style>
+
+<nav class="navbar" style="background-color: darkslategray">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">DashBoard</a>
+    </div>
+</nav>
 
 <div class="container">
     Index page
