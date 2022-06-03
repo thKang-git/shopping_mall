@@ -8,19 +8,16 @@
     <meta charset="EUC-KR">
     <title>Index page</title>
 
-
-<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">--%>
-<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">--%>
-<%--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>--%>
-    <link href="${path}/shopping/shoplist.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${path}/bootstrap/js/bootstrap.js?v=<%=System.currentTimeMillis() %>"></script>
     <script type="text/javascript" src="${path}/shopping/shoplist.js?v=<%=System.currentTimeMillis() %>"></script>
-
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 </head>
-<script>
-    $(".add-to-cart").on('click', function () {
-        alert("da");
-    });
+<script type="text/javascript">
+
 </script>
 <body>
 
@@ -41,7 +38,7 @@
 
     <div class="clear"></div>
     <!-- items -->
-    <div class="items">
+    <div class="itemss">
         <!-- single item -->
         <div class="item">
             <img src="http://img.tjskl.org.cn/pic/z2577d9d-200x200-1/pinarello_lungavita_2010_single_speed_bike.jpg" alt="item" />
@@ -49,7 +46,7 @@
 
             <p>Price: <em>$449</em>
             </p>
-            <button class="add-to-cart" type="button">Add to cart</button>
+            <button class="add-to-cart" onclick="shop()" type="button">Add to cart</button>
         </div>
         <!--/ single item -->
         <!-- single item -->
@@ -59,7 +56,7 @@
 
             <p>Price: <em>$449</em>
             </p>
-            <button class="add-to-cart" type="button">Add to cart</button>
+            <button class="add-to-cart" onclick="shop()" type="button">Add to cart</button>
         </div>
         <!--/ single item -->
         <!-- single item -->
@@ -69,7 +66,7 @@
 
             <p>Price: <em>$449</em>
             </p>
-            <button class="add-to-cart" type="button">Add to cart</button>
+            <button class="add-to-cart" onclick="shop()" type="button">Add to cart</button>
         </div>
         <!--/ single item -->
     </div>

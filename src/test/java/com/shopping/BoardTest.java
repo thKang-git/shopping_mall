@@ -21,19 +21,19 @@ public class BoardTest {
     void save() {
 
         Board parms = Board.builder()
-                .title("2번 상품입니다.")
+                .title("3번 상품입니다.")
+                .price(12000)
                 .content("이 상품은 테스트 입니다.")
-                .writer("관리자")
                 .hits(0)
+                .useyn('Y')
                 .deleteYn('N')
                 .build();
 
         boardRepository.save(parms);
 
-        Board board = boardRepository.findById((long) 2).get();
-        assertThat(board.getTitle()).isEqualTo("2번 상품입니다.");
+        Board board = boardRepository.findById((long) 3).get();
+        assertThat(board.getTitle()).isEqualTo("3번 상품입니다.");
         assertThat(board.getContent()).isEqualTo("이 상품은 테스트 입니다.");
-        assertThat(board.getWriter()).isEqualTo("관리자");
     }
 
     @Test

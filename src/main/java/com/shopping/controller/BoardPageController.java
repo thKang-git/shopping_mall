@@ -16,6 +16,11 @@ public class BoardPageController {
         return mav;
     }
 
+    @GetMapping(value = "/write.do")
+    public ModelAndView write() {
+        ModelAndView mav = new ModelAndView("write");
+        return mav;
+    }
 
 
 }

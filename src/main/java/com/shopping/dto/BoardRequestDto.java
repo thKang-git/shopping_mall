@@ -10,16 +10,18 @@ import lombok.NoArgsConstructor;
 public class BoardRequestDto {
 
     private String title; // 제목
+    private int price; // 가격
     private String content; // 내용
-    private String writer; // 작성자
+    private char useyn; // 판매 유무
     private char deleteYn; // 삭제 여부
 
     public Board toEntity() {
         return Board.builder()
                 .title(title)
+                .price(price)
                 .content(content)
-                .writer(writer)
                 .hits(0)
+                .useyn(useyn)
                 .deleteYn(deleteYn)
                 .build();
     }

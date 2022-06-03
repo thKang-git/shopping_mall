@@ -40,7 +40,7 @@ public class BoardService {
 
         Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
 
-        entity.update(params.getTitle(), params.getContent(), params.getWriter());
+        entity.update(params.getTitle(), params.getPrice() ,params.getContent(), params.getUseyn());
         return id;
     }
 
