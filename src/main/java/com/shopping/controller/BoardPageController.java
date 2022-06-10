@@ -2,7 +2,9 @@ package com.shopping.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -12,15 +14,41 @@ public class BoardPageController {
     @GetMapping(value = "/index.do")
     public ModelAndView home() {
         ModelAndView mav = new ModelAndView("index");
-
         return mav;
     }
 
+    @GetMapping(value = "/test.do")
+    public ModelAndView test() {
+        ModelAndView mav = new ModelAndView("shop");
+        return mav;
+    }
+
+    /**
+     * 게시글 리스트
+     */
+    @GetMapping(value = "/list.do")
+    public ModelAndView list() {
+        ModelAndView mav = new ModelAndView("list");
+        return mav;
+    }
+
+    /**
+     * 게시글 생성
+     */
     @GetMapping(value = "/write.do")
-    public ModelAndView write() {
+    public ModelAndView write(@RequestParam(required = false) final Long id) {
         ModelAndView mav = new ModelAndView("write");
+        mav.addObject("id", id);
         return mav;
     }
 
-
+    /**
+     * 게시글 상세 페이지
+     */
+    @GetMapping(value = "/view/{id}")
+    public ModelAndView viewopen(@PathVariable final Long id) {
+        ModelAndView mav = new ModelAndView("view");
+        mav.addObject("id", id);
+        return mav;
+    }
 }

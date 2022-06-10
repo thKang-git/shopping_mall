@@ -44,11 +44,28 @@ public class Board {
         this.deleteYn = deleteYn;
     }
 
+    /**
+     * 게시글 수정
+     */
     public void update(String title, int price, String content, char useyn) {
         this.title = title;
         this.price = price;
         this.content = content;
         this.useyn = useyn;
         this.modifiedDate = LocalDateTime.now();
+    }
+
+    /**
+     * 조회 수 증가
+     */
+    public void hitsup() {
+        this.hits++;
+    }
+
+    /**
+     * 게시글 삭제
+     */
+    public void delete() {
+        this.deleteYn = 'Y';
     }
 }

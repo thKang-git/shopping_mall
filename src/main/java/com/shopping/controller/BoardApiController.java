@@ -15,19 +15,43 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
+    /**
+     * 게시글 저장
+     */
     @PostMapping("/save")
     public Long save(@RequestBody final BoardRequestDto params) {
         return boardService.save(params);
     }
 
+    /**
+     * 게시글 조회
+     */
     @GetMapping("/boards")
     public List<BoardResponseDto> findAll() {
-        return boardService.findAll();
+        return boardService.findAllByDeleteYn('N');
     }
 
+    /**
+     * 게시글 수정
+     */
     @PatchMapping("/boards/{id}")
     public Long save(@PathVariable final Long id, @RequestBody final BoardRequestDto params) {
         return boardService.update(id, params);
     }
 
+    /**
+     * 게시글 상세보기
+     */
+    @GetMapping(value = "/boards/{id}")
+    public BoardResponseDto findById(@PathVariable final Long id) {
+        return boardService.findById(id);
+    }
+
+    /**
+     * 게시글 삭제
+     */
+    @DeleteMapping(value = "/boards/{id}")
+    public Long delete(@PathVariable final Long id) {
+        return boardService.delete(id);
+    }
 }
