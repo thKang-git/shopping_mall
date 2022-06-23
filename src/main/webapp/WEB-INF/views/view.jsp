@@ -109,7 +109,9 @@
 
 <div class="btn_wrap text-center">
     <button type="button" class="btn btn-secondary" onclick="goList()">뒤로가기</button>
-    <button type="button" class="btn btn-danger" onclick="deleteBoard()">삭제하기</button>
+    <c:if test="${role != 'ADMIN'}"><button type="button" class="btn btn-danger" disabled>삭제하기</button></c:if>
+
+    <c:if test="${role == 'ADMIN'}"><button type="button" class="btn btn-danger" onclick="deleteBoard()">삭제하기</button></c:if>
     <button type="button" class="btn btn-primary" onclick="goWrite()">수정하기</button>
 </div>
 

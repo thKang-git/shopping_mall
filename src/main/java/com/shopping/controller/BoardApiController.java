@@ -18,7 +18,7 @@ public class BoardApiController {
     /**
      * 게시글 저장
      */
-    @PostMapping("/save")
+    @PostMapping("/boards")
     public Long save(@RequestBody final BoardRequestDto params) {
         return boardService.save(params);
     }

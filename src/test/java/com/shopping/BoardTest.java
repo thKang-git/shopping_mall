@@ -30,10 +30,6 @@ public class BoardTest {
                 .build();
 
         boardRepository.save(parms);
-
-        Board board = boardRepository.findById((long) 3).get();
-        assertThat(board.getTitle()).isEqualTo("3번 상품입니다.");
-        assertThat(board.getContent()).isEqualTo("이 상품은 테스트 입니다.");
     }
 
     @Test

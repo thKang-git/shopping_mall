@@ -13,7 +13,11 @@
      */
     function findBoard() {
 
-        const id = ${id};
+        let id = ${id};
+
+        if (id == 0) {
+            id = "";
+        }
 
         if ( !id ) {
             return false;
@@ -99,9 +103,17 @@
             deleteYn: 'N'
         };
 
-        const id = ${id};
-        const uri = ( id ) ? `/api/boards/${id}` : '/api/boards';
+        let id = ${id};
+
+        if (id == 0) {
+            id = "";
+        }
+
+        const uri = ( id ) ? `/api/boards/${id}`: '/api/boards';
+        console.log(uri);
+
         const method = ( id ) ? 'PATCH' : 'POST';
+        console.log(method);
 
         fetch(uri, {
             method: method,
@@ -122,8 +134,6 @@
             alert('오류가 발생하였습니다.');
         });
     }
-
-
 </script>
 <body>
 

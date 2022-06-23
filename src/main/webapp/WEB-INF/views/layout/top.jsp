@@ -45,6 +45,13 @@
                 </li>
             </ul>
             <form class="d-flex">
+                <c:if test="${user != null}">
+                    <a class="btn btn-outline-dark">${user} ${role}님</a>
+                    <a href="/logout" class="btn btn-outline-dark">로그아웃</a>
+                </c:if>
+                <c:if test="${user == null}">
+                    <a href="/auth/login" class="btn btn-outline-dark">로그인</a>
+                </c:if>
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
