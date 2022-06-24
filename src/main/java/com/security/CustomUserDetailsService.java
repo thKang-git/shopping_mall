@@ -1,4 +1,4 @@
-package com.shopping.security;
+package com.security;
 
 import com.shopping.domain.User;
 import com.shopping.domain.UserRepository;

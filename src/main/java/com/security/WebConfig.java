@@ -1,4 +1,4 @@
-package com.shopping.security;
+package com.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

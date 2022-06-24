@@ -1,8 +1,7 @@
 package com.shopping.domain;
 
-import com.shopping.security.Role;
+import com.security.Role;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

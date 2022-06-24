@@ -2,7 +2,7 @@ package com.shopping.controller;
 
 import com.shopping.dto.UserDto;
 import com.shopping.dto.UserSessionDto;
-import com.shopping.security.LoginUser;
+import com.security.LoginUser;
 import com.shopping.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.shopping.exception;
+package com.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

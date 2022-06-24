@@ -1,5 +1,6 @@
 package com.shopping.controller;
 
+import com.paging.CommonParams;
 import com.shopping.dto.BoardRequestDto;
 import com.shopping.dto.BoardResponseDto;
 import com.shopping.service.BoardService;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -27,8 +29,8 @@ public class BoardApiController {
      * 게시글 조회
      */
     @GetMapping("/boards")
-    public List<BoardResponseDto> findAll() {
-        return boardService.findAllByDeleteYn('N');
+    public Map<String, Object> findAll(final CommonParams params) {
+        return boardService.findAll(params);
     }
 
     /**

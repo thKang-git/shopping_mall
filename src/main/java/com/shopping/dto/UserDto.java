@@ -1,7 +1,7 @@
 package com.shopping.dto;
 
 import com.shopping.domain.User;
-import com.shopping.security.Role;
+import com.security.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.shopping.security;
+package com.security;
 
 import com.shopping.dto.UserSessionDto;
 import lombok.RequiredArgsConstructor;

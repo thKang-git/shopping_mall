@@ -1,7 +1,7 @@
-package com.shopping.config;
+package com.config;
 
-import com.shopping.security.CustomAccessDeniedHandler;
-import com.shopping.security.CustomUserDetailsService;
+import com.security.CustomAccessDeniedHandler;
+import com.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,29 +51,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/", "/auth/login")
+//                .permitAll()
+//                .antMatchers("/shopping/list.do", "/shopping/view/**")
+//                .hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/shopping/**")
+//                .hasAnyRole("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/auth/login")
+//                .loginProcessingUrl("/loginProc")
+//                .defaultSuccessUrl("/shopping/list.do", true)
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/auth/login")
+//                .invalidateHttpSession(true);
+//
+//        // 인증 거부 관련 처리
+//        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
         http
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/", "/auth/login")
-                .permitAll()
-                .antMatchers("/shopping/list.do", "/shopping/view/**")
-                .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/shopping/**")
-                .hasAnyRole("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/loginProc")
-                .defaultSuccessUrl("/shopping/list.do", true)
-                .and()
-                .logout()
-                .logoutSuccessUrl("/auth/login")
-                .invalidateHttpSession(true);
-
-        // 인증 거부 관련 처리
-        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+                .headers().frameOptions().disable();
     }
 
     private AccessDeniedHandler accessDeniedHandler() {

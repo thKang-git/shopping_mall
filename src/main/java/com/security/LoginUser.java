@@ -1,4 +1,4 @@
-package com.shopping.security;
+package com.security;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

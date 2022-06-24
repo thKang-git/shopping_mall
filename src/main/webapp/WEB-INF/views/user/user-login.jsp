@@ -105,10 +105,13 @@
     #register {
         left: 450px;
     }
+    .rounded {
+        border-radius: 1rem !important;
+    }
 </style>
 <body>
 <div class="wrap">
-    <div class="form-wrap">
+    <div class="form-wrap rounded">
         <div class="button-wrap">
             <div id="btn"></div>
             <button type="button" class="togglebtn" onclick="login()">LOG IN</button>

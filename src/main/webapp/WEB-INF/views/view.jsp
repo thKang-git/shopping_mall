@@ -33,7 +33,7 @@
 
         }).catch(error => {
             alert('게시글 정보를 찾을 수 없습니다.');
-            return;
+            goList();
         });
     }
 
@@ -67,7 +67,6 @@
 
         }).catch(error => {
             alert('오류가 발생하였습니다.');
-            goList();
         });
     }
 
