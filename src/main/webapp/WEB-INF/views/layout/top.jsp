@@ -12,6 +12,7 @@
     <link rel="icon" type="image/x-icon" href="${path}/assets/favicon.ico?v=<%=System.currentTimeMillis() %>" />
     <link href="${path}/css/styles.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" />
     <link rel="stylesheet" href="${path}/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css?v=<%=System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -26,7 +27,7 @@
 <body>
 
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width: 100%;">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width: 100%; z-index:9;">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#!">Shopping Mall</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -44,7 +45,7 @@
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
+            <form class="d-flex float-end" style="padding-top: 8.5px">
                 <c:if test="${user != null}">
                     <a class="btn btn-outline-dark">${user} ${role}님</a>
                     <a href="/logout" class="btn btn-outline-dark">로그아웃</a>

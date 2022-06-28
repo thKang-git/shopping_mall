@@ -3448,9 +3448,9 @@ textarea.form-control-lg {
   border-color: #212529;
 }
 .btn-outline-dark:hover {
-  color: #fff;
-  background-color: #212529;
-  border-color: #212529;
+  color: #fff !important;
+  background-color: #212529 !important;
+  border-color: #212529 !important;
 }
 .btn-check:focus + .btn-outline-dark, .btn-outline-dark:focus {
   box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.5);
@@ -11292,7 +11292,6 @@ textarea.form-control-lg {
     position: fixed !important;
   }
 
-
   /*login*/
   .limiter {
     width: 100%;
@@ -11344,4 +11343,23 @@ textarea.form-control-lg {
   }
   .p-b-26 {padding-bottom: 26px;}
   .p-b-48 {padding-bottom: 48px;}
+}
+
+/*
+ * end of file css
+ */
+
+@media screen and (min-width: 768px) {
+  #adv-search {
+    width: 500px;
+    margin: 0 auto;
+  }
+  .dropdown.dropdown-lg {
+    position: static !important;
+  }
+  .dropdown.dropdown-lg .dropdown-menu {
+    min-width: 500px;
+  }
+
+
 }

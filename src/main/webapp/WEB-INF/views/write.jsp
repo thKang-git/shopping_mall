@@ -110,10 +110,8 @@
         }
 
         const uri = ( id ) ? `/api/boards/${id}`: '/api/boards';
-        console.log(uri);
 
         const method = ( id ) ? 'PATCH' : 'POST';
-        console.log(method);
 
         fetch(uri, {
             method: method,
