@@ -126,11 +126,24 @@
             }
 
             alert('저장되었습니다.');
-            location.href = 'list.do';
+            goList();
 
         }).catch(error => {
             alert('오류가 발생하였습니다.');
         });
+    }
+
+    /**
+     * 페이지 이동
+     */
+    function goList() {
+
+        let id = ${id};
+
+        if (id == 0) {
+            id = "";
+        }
+        location.href = (id) ? '/shopping/list.do' + location.search : '/shopping/list.do';
     }
 </script>
 <body>
@@ -149,30 +162,30 @@
     <form id="subform" class="container" action="/api/save" method="POST">
 
         <div class="form-label">
-            <label for="useyn" class="col-sm-2 control-label" style="display: inline">판매 유무</label>
-            <div class="col-sm-10" style="margin-top: 10px; display: inline">
+            <label for="useyn" class="control-label" style="display: inline">판매 유무</label>
+            <div style="margin-top: 10px; display: inline">
                 <input type="checkbox" id="useyn" name="useyn"/>
             </div>
         </div>
 
         <div class="form-label" style="margin-top: 20px">
-            <label for="title" class="col-sm-2 control-label">상품명</label>
+            <label for="title" class="control-label">상품명</label>
             <input type="text" id="title" class="form-control" placeholder="상품명을 입력해 주세요."/>
         </div>
 
         <div class="form-label" style="margin-top: 20px">
-            <label for="price" class="col-sm-2 control-label">가격</label>
+            <label for="price" class="control-label">가격</label>
             <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                    id="price" class="form-control" placeholder="가격을 입력해 주세요."/>
         </div>
 
         <div class="form-label" style="margin-top: 20px">
-            <label for="content" class="col-sm-2 control-label">내용</label>
-            <textarea id="content" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
+            <label for="content" class="control-label">내용</label>
+            <textarea id="content" class="form-control" style="resize: none; height: 200px;" placeholder="내용을 입력해 주세요."></textarea>
         </div>
 
         <div class="btn_wrap text-center">
-            <a href="list.do" class="btn btn-secondary">뒤로가기</a>
+            <button type="button" onclick="goList()" class="btn btn-secondary">뒤로가기</button>
             <button type="button" class="btn btn-primary" onclick="save()">저장하기</button>
         </div>
 

@@ -41,7 +41,7 @@
      * 수정하기
      */
     function goWrite() {
-        location.href = `/shopping/write.do?id=${id}`;
+        location.href = `/shopping/write.do` + location.search +`&id=${id}`;
     }
 
     /**
@@ -74,7 +74,7 @@
      * 페이지 이동
      */
     function goList() {
-        location.href = '/shopping/list.do';
+        location.href = '/shopping/list.do' + location.search;
     }
 
 </script>

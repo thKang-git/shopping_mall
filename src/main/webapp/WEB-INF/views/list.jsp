@@ -5,7 +5,8 @@
 <script type="text/javascript">
 
     window.onload = () => {
-        findAll(1);
+        setQueryStringParams();
+        findAll();
         addEnterSearchEvent();
     }
 
@@ -22,10 +23,30 @@
     }
 
     /**
+     * 쿼리 스트링 파라미터 셋팅
+     */
+    function setQueryStringParams() {
+
+        if ( !location.search ) {
+            return false;
+        }
+
+        const form = document.getElementById('searchForm');
+
+        new URLSearchParams(location.search).forEach((value, key) => {
+            if (form[key]) {
+                form[key].value = value;
+            }
+        });
+    }
+
+    /**
      * 페이지 조회
      */
     function findAll(page) {
-        console.log(page);
+
+        const pageParam = Number(new URLSearchParams(location.search).get('page'));
+        page = (page) ? page : ((pageParam) ? pageParam : 1);
 
         let form = document.getElementById('searchForm');
 
@@ -37,7 +58,9 @@
             keyword : form.keyword.value
         };
 
-        console.log(params);
+        const queryString = new URLSearchParams(params).toString();
+        const replaceUri = location.pathname + '?' + queryString;
+        history.replaceState({}, '', replaceUri);
 
         let uri = '/api/boards'
 
@@ -59,6 +82,8 @@
                 return false;
             } else {
                 data.list.forEach((obj, idx) => {
+                    const viewUri = '/shopping/view/'+ obj.id +'' + '?' + queryString;
+                    console.log(viewUri);
                     html += `
                         <div class="col mb-5">
                             <div class="card h-100">
@@ -79,7 +104,7 @@
                                     </div>
                                 </div>
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-info mt-auto" href="/shopping/view/`+ obj.id +`">상세보기</a></div>
+                                        <div class="text-center"><a class="btn btn-info mt-auto" href="`+ viewUri +`">상세보기</a></div>
                                     </div>
                                 </div>
                             </div>
