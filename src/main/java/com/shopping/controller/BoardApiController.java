@@ -56,4 +56,5 @@ public class BoardApiController {
     public Long delete(@PathVariable final Long id) {
         return boardService.delete(id);
     }
+
 }

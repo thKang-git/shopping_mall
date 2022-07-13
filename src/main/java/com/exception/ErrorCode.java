@@ -29,6 +29,16 @@ public enum ErrorCode {
      */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
 
+    /*
+     * 500 INTERNAL_FILE_SERVER_ERROR: 파일 업로드 오류
+     */
+    INTERNAL_FILE_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드 실패했습니다."),
+
+    /*
+     * 500 INTERNAL_FILE_DELETE_SERVER_ERROR: 파일 삭제 오류
+     */
+    INTERNAL_FILE_DELETE_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일 삭제를 실패했습니다."),
+
     ;
 
     private final HttpStatus status;

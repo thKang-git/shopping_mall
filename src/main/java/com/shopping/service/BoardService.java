@@ -4,13 +4,14 @@ import com.paging.CommonParams;
 import com.paging.Pagination;
 import com.shopping.domain.Board;
 import com.shopping.domain.BoardRepository;
+import com.shopping.dto.AmazonS3Dto;
 import com.shopping.dto.BoardRequestDto;
 import com.shopping.dto.BoardResponseDto;
 import com.exception.CustomException;
 import com.exception.ErrorCode;
+import com.shopping.mapper.AmazonS3Mapper;
 import com.shopping.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +26,8 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final BoardMapper boardMapper;
+    private final AmazonS3Mapper amazonS3Mapper;
+    private final AwsS3Service awsS3Service;
 
     /**
      * 게시글 저장
@@ -44,6 +46,15 @@ public class BoardService {
     public Long delete(final Long id) {
         Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
         entity.delete();
+        List<AmazonS3Dto> fileName = amazonS3Mapper.selectFile(id);
+
+        if (!fileName.isEmpty()) {
+            for (AmazonS3Dto arr : fileName) {
+                String name = arr.getSaveName();
+                awsS3Service.deleteFile(name);
+            }
+        }
+
         return id;
     }
 

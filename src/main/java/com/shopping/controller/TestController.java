@@ -1,21 +1,23 @@
 package com.shopping.controller;
 
+import com.shopping.dto.AmazonS3Dto;
+import com.shopping.mapper.AmazonS3Mapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @EnableScheduling
+@RequiredArgsConstructor
 public class TestController {
+    private final AmazonS3Mapper amazonS3Mapper;
 
     @GetMapping(value = "/")
     @ResponseBody
@@ -45,15 +47,19 @@ public class TestController {
 
     @GetMapping(value = "/test")
     @ResponseBody
-    public Stream teststart() {
+    public String teststart() {
 
-        String[] str = {"apple", "banana", "pear", "kiwi", "orange", "apple"};
+        List<AmazonS3Dto> fileName = amazonS3Mapper.selectFile(2096L);
 
-        return Arrays.stream(str)
-                .filter(c -> c.length() < 6)
-                .distinct()
-                .map(q -> q.toUpperCase())
-                .sorted();
+        String name = fileName.get(0).getSaveName();
+
+//        if (!fileName.isEmpty()) {
+//            for (AmazonS3Dto arr : fileName) {
+//                String name = arr.getSaveName();
+//                System.out.println(name);
+//            }
+//        }
+        return name;
     }
 
 

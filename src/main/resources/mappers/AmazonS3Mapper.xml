@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shopping.mapper.AmazonS3Mapper">
+
+    <!-- SELECT 결과 Map -->
+    <resultMap id="AmazonResultMap" type="com.shopping.dto.AmazonS3Dto">
+        <result property="id"            column="id" />
+        <result property="boardIdx"         column="board_idx" />
+        <result property="originalName"       column="original_name" />
+        <result property="saveName"        column="save_name" />
+        <result property="filePath"          column="file_path" />
+        <result property="size"      column="size" />
+        <result property="type"   column="type" />
+        <result property="insertTime"  column="insert_time" />
+    </resultMap>
+
+    <insert id="saveFile" parameterType="list">
+        INSERT INTO attach (board_idx, original_name, save_name, file_path, size, type, insert_time)
+        VALUES
+        <foreach item="item" index="index" collection="list" separator=" , ">
+                 (#{item.boardIdx}, #{item.originalName}, #{item.saveName}, #{item.filePath}, #{item.size}, #{item.type}, NOW())
+        </foreach>
+    </insert>
+
+    <delete id="deleteFile" parameterType="string">
+        DELETE FROM attach
+        WHERE save_name = #{fileName}
+    </delete>
+
+    <select id="selectFile" parameterType="long" resultMap="AmazonResultMap">
+        SELECT *
+        FROM attach
+        WHERE board_idx = #{boardIdx}
+    </select>
+
+</mapper>
