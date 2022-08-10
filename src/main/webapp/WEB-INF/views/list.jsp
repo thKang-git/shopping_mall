@@ -10,6 +10,8 @@
         addEnterSearchEvent();
     }
 
+    // ====================================================================================
+
     /**
      * 키워드 - 엔터 검색 이벤트 바인딩
      */
@@ -21,6 +23,8 @@
             }
         });
     }
+
+    // ====================================================================================
 
     /**
      * 쿼리 스트링 파라미터 셋팅
@@ -39,6 +43,8 @@
             }
         });
     }
+
+    // ====================================================================================
 
     /**
      * 페이지 조회
@@ -83,32 +89,61 @@
             } else {
                 data.list.forEach((obj, idx) => {
                     const viewUri = '/shopping/view/'+ obj.id +'' + '?' + queryString;
-                    console.log(viewUri);
-                    html += `
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">조회수 : `+ obj.hits +`</div>
-                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">`+ obj.id +`</div>
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder">`+ obj.title +`</h5>
-                                        <div class="d-flex justify-content-center small text-warning mb-2">
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
+
+                    if (obj.file_path != null) { // 썸네일 이미지가 있을 때 썸네일 표시
+                        html += `
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">조회수 : `+ obj.hits +`</div>
+                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">`+ obj.id +`</div>
+                                    <img class="card-img-top" style="width: 253px; height: 169px" src="`+ obj.file_path +`" alt="..." />
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <h5 class="fw-bolder">`+ obj.title +`</h5>
+                                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                            </div>
+                                            `+ obj.price +`원
                                         </div>
-                                        `+ obj.price +`원
+                                    </div>
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center"><a class="btn btn-info mt-auto" href="`+ viewUri +`">상세보기</a></div>
+                                        </div>
                                     </div>
                                 </div>
-                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center"><a class="btn btn-info mt-auto" href="`+ viewUri +`">상세보기</a></div>
+                        `;
+
+                    } else { // 썸네일 이미지가 없을 때 빈 썸네일 표시
+                        html += `
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">조회수 : `+ obj.hits +`</div>
+                                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; left: 0.5rem">`+ obj.id +`</div>
+                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <h5 class="fw-bolder">`+ obj.title +`</h5>
+                                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                                <div class="bi-star-fill"></div>
+                                            </div>
+                                            `+ obj.price +`원
+                                        </div>
+                                    </div>
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center"><a class="btn btn-info mt-auto" href="`+ viewUri +`">상세보기</a></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                    `;
+                        `;
+                    }
                 });
             }
 
@@ -116,6 +151,39 @@
             drawPages(data.params);
         });
     }
+
+    // ====================================================================================
+
+    /**
+     * 게시글 조회
+     */
+    function findBoard() {
+
+        fetch(`/api/boards/${id}`).then(response => {
+            if (!response.ok) {
+                throw new Error('Request failed...');
+            }
+            return response.json();
+
+        }).then(data => {
+            console.table(data);
+            data.createdDate = "등록일 : " + moment(data.createdDate).format('YYYY-MM-DD HH:mm:ss');
+            data.price = data.price.toLocaleString() + "원";
+
+            Object.keys(data).forEach(key => {
+                const elem = document.getElementById(key);
+                if (elem) {
+                    elem.innerText = data[key];
+                }
+            });
+            slides();
+        }).catch(error => {
+            alert('게시글 정보를 찾을 수 없습니다.');
+            goList();
+        });
+    }
+
+    // ====================================================================================
 
     /**
      * 페이지 HTML 렌더링

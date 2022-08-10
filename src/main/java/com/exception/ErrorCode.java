@@ -39,6 +39,11 @@ public enum ErrorCode {
      */
     INTERNAL_FILE_DELETE_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일 삭제를 실패했습니다."),
 
+    /*
+     * 500 INTERNAL_COMMENT_DELETE_SERVER_ERROR: 댓글 처리 오류
+     */
+    INTERNAL_COMMENT_DELETE_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "댓글 처리 오류입니다."),
+
     ;
 
     private final HttpStatus status;

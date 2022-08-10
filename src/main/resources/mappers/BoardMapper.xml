@@ -55,20 +55,23 @@
     <!-- 게시글 리스트 조회 -->
     <select id="findAll" parameterType="com.paging.CommonParams" resultMap="BoardResultMap">
         SELECT
-        id
-        , title
-        , price
-        , content
-        , hits
-        , useyn
-        , delete_yn
-        , created_date
-        , modified_date
-        FROM
-        shopboard
+          a.id
+        , a.title
+        , a.price
+        , a.content
+        , a.hits
+        , a.useyn
+        , a.delete_yn
+        , a.created_date
+        , a.modified_date
+        , MIN(b.id) AS attach_id
+        , b.file_path
+        FROM shopboard AS a
+        LEFT OUTER JOIN attach AS b
+        ON a.id = b.board_idx
         <include refid="conditions" />
-        ORDER BY
-        id DESC, created_date DESC
+        GROUP BY
+        a.id DESC, a.created_date DESC
         LIMIT #{pagination.limitStart}, #{recordPerPage}
     </select>
 

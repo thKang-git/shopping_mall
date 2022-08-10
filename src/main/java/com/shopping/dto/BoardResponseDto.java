@@ -21,6 +21,9 @@ public class BoardResponseDto {
     private LocalDateTime createdDate; // 생성일
     private LocalDateTime modifiedDate; // 수정일
 
+    private Long attach_id; // 파일 번호
+    private String file_path; // 업로드 URL
+
     public BoardResponseDto(Board entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();

@@ -57,50 +57,11 @@
     <div class="card bg-light">
         <div class="card-body">
             <!-- Comment form-->
-            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="댓글을 입력해주세요"></textarea></form>
-            <!-- Comment with nested comments-->
-            <div class="d-flex mb-4">
-                <!-- Parent comment-->
-                <div class="flex-shrink-0"><img class="rounded-circle"
-                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
-                <div class="ms-3">
-                    <div class="fw-bold">Commenter Name</div>
-                    If you're going to lead a space frontier, it has to be government; it'll never be private
-                    enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified
-                    risks.
-                    <!-- Child comment 1-->
-                    <div class="d-flex mt-4">
-                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                        </div>
-                        <div class="ms-3">
-                            <div class="fw-bold">Commenter Name</div>
-                            And under those conditions, you cannot establish a capital-market evaluation of that
-                            enterprise. You can't get investors.
-                        </div>
-                    </div>
-                    <!-- Child comment 2-->
-                    <div class="d-flex mt-4">
-                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                        </div>
-                        <div class="ms-3">
-                            <div class="fw-bold">Commenter Name</div>
-                            When you put money directly to a problem, it makes a good headline.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Single comment-->
-            <div class="d-flex">
-                <div class="flex-shrink-0"><img class="rounded-circle"
-                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
-                <div class="ms-3">
-                    <div class="fw-bold">Commenter Name</div>
-                    When I look at the universe and all the ways the universe wants to kill us, I find it hard to
-                    reconcile that with statements of beneficence.
-                </div>
-            </div>
+            <form class="mb-4" id="formComment">
+                <textarea class="form-control" id="contents" rows="3" placeholder="댓글을 입력해주세요"></textarea>
+                <button type="button" onclick="insertComment()" class="btn btn-info">등록</button>
+            </form>
+            <div id="comment"></div>
         </div>
     </div>
 </section>
@@ -118,9 +79,182 @@
     window.onload = () => {
         findBoard();
         findFile();
-    }
+        findComment();
+        }
 
     // ====================================================================================
+
+    /**
+     * 댓글 조회
+     */
+    function findComment() {
+        fetch('/comment/${id}').then(response => {
+            if (!response.ok) {
+                throw new Error('Request failed...');
+            }
+            return response.json();
+
+        }).then(data => {
+            let html = '';
+            console.log(data);
+            if (data.length != 0) {
+                data.forEach((obj, idx) => {
+                    if(obj.writerIdx == ${userIdx}) {
+                        html += `
+                            <div class="d-flex mb-4">
+                                <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                                <div>
+                                <div id="commentDiv`+ idx +`">
+                                    <div class="ms-3" style="float: left">
+                                        <div class="fw-bold" data-content="` + obj.content + `" id="comment`+ idx +`">` + obj.writer + `</div>
+                                            ` + obj.content + `
+                                    </div>
+                                    <div style="margin: 18px; float: right">
+                                        <button type="button" onclick="updateComment(`+ idx +`, `+ obj.id+`)" class="btn btn-success btn-xs">수정</button>
+                                        <button type="button" onclick="deleteComment(`+obj.id+`)" class="btn btn-danger btn-xs">삭제</button>
+                                    </div>
+                                </div>
+                               </div>
+                            </div>
+                        `;
+                    } else {
+                        html += `
+                            <div class="d-flex mb-4">
+                                <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">` + obj.writer + `</div>
+                                        ` + obj.content + `
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            } else {
+                html += `
+            <div class="d-flex mb-4">
+                <div class="flex-shrink-0"><img class="rounded-circle"
+                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                <div class="ms-3">
+                    <div class="fw-bold">Commenter Name</div>
+                    If you're going to lead a space frontier, it has to be government; it'll never be private
+                    enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified
+                    risks. What the Hell!!!!!! == 댓글이 없습니다. ==
+                </div>
+            </div>
+            <div class="d-flex mb-4">
+                <div class="flex-shrink-0"><img class="rounded-circle"
+                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                <div class="ms-3">
+                    <div class="fw-bold">Commenter Name</div>
+                    If you're going to lead a space frontier, it has to be government; it'll never be private
+                    enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified
+                    risks. What the Hell!!!!!! == 댓글이 없습니다. ==
+                </div>
+            </div>
+                `;
+            }
+            document.getElementById('comment').innerHTML = html;
+
+        }).catch(error => {
+            alert('정보를 찾을 수 없습니다.');
+        });
+    }
+
+    /**
+     * 댓글 등록 및 수정
+     */
+    function insertComment(id) {
+
+        let form = document.getElementById('formComment');
+
+        if (id == null) { // 등록
+            let params = {
+                "boardIdx" : ${id},
+                "content" : form.contents.value,
+                "writer" : "${user}",
+                "writerIdx" : ${userIdx}
+            };
+
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: "/comment/save",
+                async: false,
+                data: JSON.stringify(params),
+                dataType: "json",
+                success: function(response) {
+                    console.log("등록완료");
+                    findComment();
+                    document.getElementById('contents').value='';
+                }
+            });
+        } else { // 수정
+            let params = {
+                "content" : form.contents.value
+            };
+
+            let url = "/comment/" + id;
+
+            $.ajax({
+                type: "PATCH",
+                contentType: 'application/json',
+                url: url,
+                async: false,
+                data: JSON.stringify(params),
+                dataType: "json",
+                success: function(response) {
+                    console.log("수정완료");
+                    findComment();
+                }
+            });
+        }
+    }
+
+    /**
+     * 댓글 삭제
+     */
+    function deleteComment(id) {
+
+        if (!confirm("댓글을 삭제하시겠습니까?")) {
+            return;
+        }
+
+        let url = "/comment/" + id;
+
+        $.ajax({
+            type: "DELETE",
+            contentType: 'application/json',
+            url: url,
+            async: false,
+            success: function(response) {
+                console.log("삭제완료");
+                findComment();
+            }
+        });
+    }
+
+    /**
+     * 댓글 수정칸 보이기
+     */
+    function updateComment(idx, id) {
+        document.getElementById('commentDiv'+ idx).style.display="none";
+
+        let comment = document.getElementById('comment'+ idx).dataset.content;
+        let html = "<textarea placeholder='댓글을 입력하세요' style='width: 800px'>"+ comment +"</textarea>";
+        html += `<div style="margin: 18px;">
+                    <button type="button" class="btn btn-info btn-xs">수정</button>
+                    <button type="button" class="btn btn-secondary btn-xs">취소</button>
+                </div>
+            `;
+
+        document.getElementById('commentDiv'+ idx).innerHTML = html;
+        // 여기까지 수정 완료
+        // 해야할 것 : 이름 보이기 버튼 안보이기 취소 버튼도 필요
+
+    }
+
     /**
      * 파일 슬라이드
      */

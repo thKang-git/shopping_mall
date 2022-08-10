@@ -70,6 +70,7 @@ public class BoardPageController {
         if (user != null) {
             mav.addObject("user", user.getUsername());
             mav.addObject("role", user.getRole());
+            mav.addObject("userIdx", user.getId());
         }
 
         return mav;

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class UserSessionDto implements Serializable {
+    private Long id;
     private String userid;
     private String password;
     private String username;
@@ -18,6 +19,7 @@ public class UserSessionDto implements Serializable {
 
     /* Entity -> Dto */
     public UserSessionDto(User user) {
+        this.id = user.getId();
         this.userid = user.getUserid();
         this.password = user.getPassword();
         this.username = user.getUsername();

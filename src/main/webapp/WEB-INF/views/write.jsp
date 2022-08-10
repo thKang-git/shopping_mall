@@ -104,23 +104,23 @@
      * 검사
      */
     function isValid() {
-        const subform = document.getElementById('subform');
+        const form = document.getElementById('subform');
 
-        if (!subform.title.value.trim()) {
-            alert('제목을 입력해 주세요.');
+        if (!form.title.value.trim()) {
+            alert('상품명 입력해 주세요.');
             form.title.value = '';
             form.title.focus();
             return false;
         }
 
-        if (!subform.price.value.trim()) {
+        if (!form.price.value.trim()) {
             alert('가격을 입력해 주세요.');
             form.price.value = '';
             form.price.focus();
             return false;
         }
 
-        if (!subform.content.value.trim()) {
+        if (!form.content.value.trim()) {
             alert('내용을 입력해 주세요.');
             form.content.value = '';
             form.content.focus();
