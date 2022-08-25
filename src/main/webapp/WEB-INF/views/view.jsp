@@ -32,9 +32,9 @@
 
                     <p class="lead" id="content"></p>
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                               style="max-width: 3rem"/>
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        <input class="form-control text-center me-3" id="inputQuantity" type="text" value="1" disabled
+                               style="max-width: 4rem"/>
+                        <button onclick="stmdPrdct(${id})" class="btn btn-outline-dark flex-shrink-0" type="button">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
@@ -105,6 +105,7 @@
                                 <div class="flex-shrink-0"><img class="rounded-circle"
                                                                 src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
                                 <div>
+                                <div id="divComment`+ idx +`"></div>
                                 <div id="commentDiv`+ idx +`">
                                     <div class="ms-3" style="float: left">
                                         <div class="fw-bold" data-content="` + obj.content + `" id="comment`+ idx +`">` + obj.writer + `</div>
@@ -162,11 +163,12 @@
         });
     }
 
+    // ====================================================================================
+
     /**
      * 댓글 등록 및 수정
      */
     function insertComment(id) {
-
         let form = document.getElementById('formComment');
 
         if (id == null) { // 등록
@@ -191,8 +193,9 @@
                 }
             });
         } else { // 수정
+            let texta = document.getElementById('textar');
             let params = {
-                "content" : form.contents.value
+                "content" : texta.value
             };
 
             let url = "/comment/" + id;
@@ -211,6 +214,8 @@
             });
         }
     }
+
+    // ====================================================================================
 
     /**
      * 댓글 삭제
@@ -235,25 +240,39 @@
         });
     }
 
+    // ====================================================================================
+
     /**
      * 댓글 수정칸 보이기
      */
     function updateComment(idx, id) {
-        document.getElementById('commentDiv'+ idx).style.display="none";
 
+        $("#commentDiv" + idx).hide();
+        $("#divComment" + idx).show();
         let comment = document.getElementById('comment'+ idx).dataset.content;
-        let html = "<textarea placeholder='댓글을 입력하세요' style='width: 800px'>"+ comment +"</textarea>";
+
+        let html = "<textarea placeholder='댓글을 입력하세요' id='textar' style='width: 800px'>"+ comment +"</textarea>";
         html += `<div style="margin: 18px;">
-                    <button type="button" class="btn btn-info btn-xs">수정</button>
-                    <button type="button" class="btn btn-secondary btn-xs">취소</button>
+                    <button type="button" onclick="insertComment(`+ id +`)" class="btn btn-info btn-xs">수정</button>
+                    <button type="button" onclick="cancel(`+idx+`)" class="btn btn-secondary btn-xs">취소</button>
                 </div>
             `;
 
-        document.getElementById('commentDiv'+ idx).innerHTML = html;
-        // 여기까지 수정 완료
-        // 해야할 것 : 이름 보이기 버튼 안보이기 취소 버튼도 필요
+        document.getElementById('divComment'+ idx).innerHTML = html;
 
     }
+
+    // ====================================================================================
+
+    /**
+     * 댓글 취소
+     */
+    function cancel(idx) {
+        $("#divComment" + idx).hide();
+        $("#commentDiv" + idx).show();
+    }
+
+    // ====================================================================================
 
     /**
      * 파일 슬라이드
@@ -367,6 +386,8 @@
         location.href = `/shopping/write.do` + location.search +`&id=${id}`;
     }
 
+    // ====================================================================================
+
     /**
      * 삭제하기
      */
@@ -393,6 +414,38 @@
         });
     }
 
+    // ====================================================================================
+
+    /**
+     * 상품 장바구니
+     */
+    function stmdPrdct(id) {
+        const userId = ${userIdx};
+
+        if (userId == null) {
+            alert("로그인을 해주세요");
+            return;
+        }
+
+        let params = {
+            "boardIdx" : id,
+            "userId" : userId,
+            "payStus" : 0
+        }
+
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/api/shopbasket",
+            async: false,
+            data: JSON.stringify(params),
+            success: function(response) {
+                basketcount();
+                alert("장바구니 " + response);
+            }
+        })
+
+    }
     // ====================================================================================
 
     /**

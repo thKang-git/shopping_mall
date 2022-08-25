@@ -5,6 +5,7 @@ import com.paging.Pagination;
 import com.shopping.domain.Board;
 import com.shopping.domain.BoardRepository;
 import com.shopping.dto.AmazonS3Dto;
+import com.shopping.dto.BasketDto;
 import com.shopping.dto.BoardRequestDto;
 import com.shopping.dto.BoardResponseDto;
 import com.exception.CustomException;
@@ -114,5 +115,23 @@ public class BoardService {
 
         entity.hitsup();
         return new BoardResponseDto(entity);
+    }
+
+    /**
+     * 장바구니 등록
+     */
+    public boolean basketsave(BasketDto basketDto) {
+
+        int result = boardMapper.insertBasket(basketDto);
+
+        return (result == 1) ? true : false;
+    }
+
+    /**
+     * 장바구니 갯수
+     */
+    public int basketcount(Long userId) {
+        int result = boardMapper.selectCountBasket(userId);
+        return result;
     }
 }

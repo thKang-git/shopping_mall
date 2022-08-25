@@ -52,11 +52,11 @@
                 <c:if test="${user == null}">
                     <a href="/auth/login" class="btn btn-outline-dark">로그인</a>
                 </c:if>
-                <button class="btn btn-outline-dark" type="submit">
+                <a class="btn btn-outline-dark" href="/shopping/shopbasket.do" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
+                    <span id="spannum" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                </a>
             </form>
         </div>
     </div>
@@ -65,4 +65,23 @@
 
 
 </body>
+<script type="text/javascript">
+
+    $(document).ready(function (){
+        basketcount();
+    })
+
+    function basketcount() {
+        $.ajax({
+            type: "GET",
+            contentType: 'application/json',
+            url: "/api/shopbasketCount",
+            async: false, //동기: false, 비동기(기본값): ture
+            success: function(response) {
+                $('#spannum').text(response)
+                console.log(response)
+            }
+        })
+    }
+</script>
 </html>

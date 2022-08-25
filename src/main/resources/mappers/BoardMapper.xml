@@ -75,4 +75,18 @@
         LIMIT #{pagination.limitStart}, #{recordPerPage}
     </select>
 
+    <!-- 장바구니 등록 -->
+    <insert id="insertBasket" parameterType="com.shopping.dto.BasketDto">
+        INSERT INTO `order`
+        (board_idx, user_id, pay_stus, created_date)
+        VALUES(#{boardIdx}, #{userId}, #{payStus}, NOW())
+    </insert>
+
+    <!-- 장바구니 갯수 -->
+    <select id="selectCountBasket" parameterType="long" resultType="int">
+        SELECT COUNT(*)
+        FROM `order`
+        WHERE user_id = #{userId}
+    </select>
+
 </mapper>

@@ -75,4 +75,21 @@ public class BoardPageController {
 
         return mav;
     }
+
+    /**
+     * 장바구니
+     */
+    @GetMapping("/shopbasket.do")
+    public ModelAndView shopbasket(@LoginUser UserSessionDto user) {
+        ModelAndView mav = new ModelAndView("shopbasket");
+
+        if (user != null) {
+            mav.addObject("user", user.getUsername());
+            mav.addObject("role", user.getRole());
+            mav.addObject("userIdx", user.getId());
+        }
+
+        return mav;
+    }
+
 }

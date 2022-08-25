@@ -1,8 +1,11 @@
 package com.shopping.controller;
 
 import com.paging.CommonParams;
+import com.security.LoginUser;
+import com.shopping.dto.BasketDto;
 import com.shopping.dto.BoardRequestDto;
 import com.shopping.dto.BoardResponseDto;
+import com.shopping.dto.UserSessionDto;
 import com.shopping.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -57,5 +60,27 @@ public class BoardApiController {
         return boardService.delete(id);
     }
 
+    /**
+     * 장바구니 등록
+     */
+    @PostMapping("/shopbasket")
+    public String saveShopbasket(@RequestBody BasketDto basketDto) {
 
+        boolean result = boardService.basketsave(basketDto);
+
+        if (result == true) {
+            return "등록완료";
+        } else {
+            return "등록실패";
+        }
+    }
+
+    /**
+     * 장바구니 갯수
+     */
+    @GetMapping("/shopbasketCount")
+    public int shopbasketCount(@LoginUser UserSessionDto user) {
+        int result = boardService.basketcount(user.getId());
+        return result;
+    }
 }
