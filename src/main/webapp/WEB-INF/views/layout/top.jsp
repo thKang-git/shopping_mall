@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -26,16 +27,16 @@
 <body>
 
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width: 100%; z-index:9;">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark " style="position: fixed; width: 100%; z-index:9;">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="list.do">Shopping Mall</a>
+        <a class="navbar-brand text-white" href="/shopping/list.do">Shopping Mall</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                <li class="nav-item"><a class="nav-link active text-white" aria-current="page" href="#!">Home</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#!">About</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#!">All Products</a></li>
                         <li><hr class="dropdown-divider" /></li>
@@ -46,15 +47,15 @@
             </ul>
             <form class="d-flex float-end" style="padding-top: 8.5px">
                 <c:if test="${user != null}">
-                    <a class="btn btn-outline-dark">${user} ${role}님</a>
-                    <a href="/logout" class="btn btn-outline-dark">로그아웃</a>
+                    <a class="btn btn-outline-dark text-white">${user} ${role}님</a>
+                    <a href="/logout" class="btn btn-outline-danger text-white">로그아웃</a>
                 </c:if>
                 <c:if test="${user == null}">
-                    <a href="/auth/login" class="btn btn-outline-dark">로그인</a>
+                    <a href="/auth/login" class="btn btn-outline-success text-white">로그인</a>
                 </c:if>
-                <a class="btn btn-outline-dark" href="/shopping/shopbasket.do" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    Cart
+                <a class="btn btn-outline-primary" href="/shopping/shopbasket.do" type="submit">
+                    <i class="bi-cart-fill me-1 text-white"></i>
+                    <span class="text-white">Cart</span>
                     <span id="spannum" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </a>
             </form>
@@ -66,6 +67,8 @@
 
 </body>
 <script type="text/javascript">
+
+    var count = 0;
 
     $(document).ready(function (){
         basketcount();
@@ -80,6 +83,7 @@
             success: function(response) {
                 $('#spannum').text(response)
                 console.log(response)
+                count = response;
             }
         })
     }

@@ -107,7 +107,7 @@
                                                 <div class="bi-star-fill"></div>
                                                 <div class="bi-star-fill"></div>
                                             </div>
-                                            `+ obj.price +`원
+                                            `+ obj.price.toLocaleString() +`원
                                         </div>
                                     </div>
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -134,7 +134,7 @@
                                                 <div class="bi-star-fill"></div>
                                                 <div class="bi-star-fill"></div>
                                             </div>
-                                            `+ obj.price +`원
+                                            `+ obj.price.toLocaleString() +`원
                                         </div>
                                     </div>
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -229,7 +229,7 @@
 <body>
 
 <!-- Header-->
-<header class="bg-dark py-5">
+<header class="bg-secondary py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
             <h1 class="display-4 fw-bolder">Shop in List</h1>

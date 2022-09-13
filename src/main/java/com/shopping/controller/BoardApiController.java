@@ -83,4 +83,13 @@ public class BoardApiController {
         int result = boardService.basketcount(user.getId());
         return result;
     }
+
+    /**
+     * 장바구니 삭제
+     */
+    @DeleteMapping("/shopbasket/{ordId}")
+    public boolean deleteShopbasket(@PathVariable final List<Long> ordId) {
+        System.out.println(ordId);
+        return boardService.basketdelete(ordId);
+    }
 }

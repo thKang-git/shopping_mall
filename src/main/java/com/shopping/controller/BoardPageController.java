@@ -1,7 +1,10 @@
 package com.shopping.controller;
 
+import com.shopping.dto.BasketDto;
 import com.shopping.dto.UserSessionDto;
 import com.security.LoginUser;
+import com.shopping.service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,9 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/shopping")
 public class BoardPageController {
+
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping(value = "/index.do")
     public ModelAndView home() {
@@ -82,6 +90,9 @@ public class BoardPageController {
     @GetMapping("/shopbasket.do")
     public ModelAndView shopbasket(@LoginUser UserSessionDto user) {
         ModelAndView mav = new ModelAndView("shopbasket");
+
+        List<BasketDto> list = boardService.basketlist(user.getId());
+        mav.addObject("basketList", list);
 
         if (user != null) {
             mav.addObject("user", user.getUsername());

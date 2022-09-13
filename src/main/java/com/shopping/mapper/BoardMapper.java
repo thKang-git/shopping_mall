@@ -29,4 +29,14 @@ public interface BoardMapper {
      * 장바구니 갯수
      */
     int selectCountBasket(Long userId);
+
+    /**
+     * 장바구니 목록
+     */
+    List<BasketDto> findBasketAll(Long userId);
+
+    /**
+     * 장바구니 삭제
+     */
+    int basketdelete(List<Long> ordId);
 }

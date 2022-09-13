@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/auth/login")
                 .permitAll()
-                .antMatchers("/shopping/list.do", "/shopping/view/**")
+                .antMatchers("/shopping/list.do", "/shopping/view/**", "/shopping/shopbasket.do")
                 .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/shopping/**")
                 .hasAnyRole("ADMIN")

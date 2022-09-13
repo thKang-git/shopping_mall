@@ -29,7 +29,7 @@
         display: block;
         width: 80%;
         height: 80px;
-        margin: auto;
+        margin-left: 8%;
     }
 
     .cart {
@@ -74,7 +74,7 @@
     }
 
     .cart__list__detail :nth-child(3) {
-        vertical-align: top;
+        /*vertical-align: top;*/
     }
 
     .cart__list__detail :nth-child(3) a {
@@ -113,7 +113,7 @@
 
     .cart__list__optionbtn {
         background-color: white;
-        font-size: 10px;
+        font-size: 12px;
         border: lightgrey solid 1px;
         padding: 7px;
     }
@@ -130,7 +130,7 @@
     }
 
     .cart__list__detail :nth-child(5) button {
-        background-color: limegreen;
+        background-color: #616eff;
         color: white;
         border: none;
         border-radius: 5px;
@@ -165,24 +165,18 @@
     }
 
     .cart__bigorderbtn.right {
-        background-color: limegreen;
+        background-color: #616eff;
         color: white;
         border: none;
     }
 </style>
-<body>
 
 <body>
 <section class="cart">
-    <div class="cart__information">
-        <ul>
-            <li>장바구니 상품은 최대 30일간 저장됩니다.</li>
-            <li>가격, 옵션 등 정보가 변경된 경우 주문이 불가할 수 있습니다.</li>
-            <li>오늘출발 상품은 판매자 설정 시점에 따라 오늘출발 여부가 변경될 수 있으니 주문 시 꼭 다시 확인해 주시기 바랍니다.</li>
-        </ul>
+    <div class="cart__information" style="padding-top: 80px;">
+    <h2 class="display-4 fw-bolder">장바구니</h2>
     </div>
     <table class="cart__list">
-        <form>
             <thead>
             <tr>
                 <td><input type="checkbox"></td>
@@ -193,45 +187,43 @@
             </tr>
             </thead>
             <tbody>
+            <c:if test="${empty basketList}">
             <tr class="cart__list__detail">
-                <td><input type="checkbox"></td>
-                <td><img src="image/keyboard.jpg" alt="magic keyboard"></td>
-                <td><a href="#">애플 공식 브랜드스토어</a><span class="cart__list__smartstore"> 스마트스토어</span>
-                    <p>Apple 매직 키보드 - 한국어(MK2A3KH/A)</p>
-                    <sapn class="price">116,62원</sapn><span
-                            style="text-decoration: line-through; color: lightgray;">119,000</span>
+                <td colspan="6" style="text-align: center">
+                    장바구니 상품이 없습니다.
+                </td>
+            </tr>
+            </c:if>
+            <c:forEach var="list" varStatus="stauts" items="${basketList}">
+            <tr class="cart__list__detail">
+                <td><input type="checkbox" id="basketchek${stauts.index}" name="checkbasket" value="${list.ordId}"></td>
+                <c:if test="${list.filePath == null}">
+                <td style="width: 15%;"><img src="https://dummyimage.com/400x300/dee2e6/6c757d.jpg" style="width:8vw;" alt="이미지를 찾을 수 없습니다."></td>
+                </c:if>
+                <c:if test="${list.filePath != null}">
+                <td style="width: 15%;"><img src="${list.filePath}" style="width:8vw;" alt="이미지를 찾을 수 없습니다."></td>
+                </c:if>
+                <td><a href="#">(주)애플 공식 브랜드스토어</a><span class="cart__list__smartstore"> 스마트스토어</span>
+                    <p>${list.title}</p>
+                    <sapn class="price"><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</sapn>
+                    <span style="text-decoration: line-through; color: lightgray;"><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</span>
                 </td>
                 <td class="cart__list__option">
-                    <p>모델명 : 키보드 - 한국어 MK2A3KH/A / 1개</p>
+                    <p>모델명 : 기본 상품 / 1개 </p>
                     <button class="cart__list__optionbtn">주문조건 추가/변경</button>
                 </td>
-                <td><span class="price">116,620원</span><br>
+                <td><span class="price"><fmt:formatNumber value="${list.price}" pattern="#,###"/>원</span><br>
                     <button class="cart__list__orderbtn">주문하기</button>
                 </td>
                 <td>무료</td>
             </tr>
-            <tr class="cart__list__detail">
-                <td style="width: 2%;"><input type="checkbox"></td>
-                <td style="width: 13%;">
-                    <img src="image/mouse.jpg" alt="magic mouse">
-                </td>
-                <td style="width: 27%;"><a href="#">컴퓨존</a><span class="cart__list__smartstore"> 스마트스토어</span>
-                    <p>[애플] Magic Mouse [MK2E3KH/A]</p>
-                    <span class=" price">88,900원</span>
-                </td>
-                <td class="cart__list__option" style="width: 27%;">
-                    <p>상품 주문 수량: 1개</p>
-                    <button class="cart__list__optionbtn">주문조건 추가/변경</button>
-                </td>
-                <td style="width: 15%;"><span class="price">88,900원</span><br>
-                    <button class="cart__list__orderbtn">주문하기</button>
-                </td>
-                <td style="width: 15%;">무료</td>
-            </tr>
+            </c:forEach>
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="3"><input type="checkbox"> <button class="cart__list__optionbtn">선택상품 삭제</button>
+                <td colspan="3">
+                    <input type="checkbox" id="checkboxall" onclick="checkboxAll()" style="margin-right: 10px">
+                    <button class="cart__list__optionbtn" onclick="deletebasket()">선택상품 삭제</button>
                     <button class="cart__list__optionbtn">선택상품 찜</button>
                 </td>
                 <td></td>
@@ -239,15 +231,67 @@
                 <td></td>
             </tr>
             </tfoot>
-        </form>
     </table>
     <div class="cart__mainbtns">
-        <button class="cart__bigorderbtn left">쇼핑 계속하기</button>
+        <button class="cart__bigorderbtn left" onclick="goList()">쇼핑 계속하기</button>
         <button class="cart__bigorderbtn right">주문하기</button>
     </div>
 </section>
 </body>
+<script type="text/javascript">
 
+    /**
+     * 목록 리턴
+     */
+    function goList() {
+        location.href = "/shopping/list.do";
+    }
 
-</body>
+    /**
+     * 체크박스 전체
+     */
+    function checkboxAll() {
+        if($('input:checkbox[id=checkboxall]').is(':checked') == true) {
+            $('input[name=checkbasket]:checkbox').prop('checked', true);
+        } else {
+            $('input[name=checkbasket]:checkbox').prop('checked', false);
+        }
+    }
+
+    /**
+     * 선택상품 삭제
+     */
+    function deletebasket() {
+        console.log("dd");
+        const chk_val = [];
+
+        $('input[name=checkbasket]:checked').each(function (){
+            var num = $(this).val();
+            num *= 1;
+            chk_val.push(num);
+        })
+        console.log(chk_val);
+
+        if(chk_val.length != 0) {
+
+            let url = "/api/shopbasket/" + chk_val;
+            console.log(url);
+
+            $.ajax({
+                type: "DELETE",
+                contentType: 'application/json',
+                url: url,
+                async: false, //동기: false, 비동기(기본값): ture
+                dataType: "json",
+                success: function(response) {
+                    console.log(response)
+                    if (response == true) {
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+
+    }
+</script>
 </html>

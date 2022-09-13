@@ -134,4 +134,22 @@ public class BoardService {
         int result = boardMapper.selectCountBasket(userId);
         return result;
     }
+
+    /**
+     * 장바구니 목록
+     */
+    public List<BasketDto> basketlist(Long userId) {
+        List<BasketDto> list = boardMapper.findBasketAll(userId);
+        return list;
+    }
+
+    /**
+     * 장바구니 삭제
+     */
+    public boolean basketdelete(List<Long> ordId) {
+
+        int result = boardMapper.basketdelete(ordId);
+
+        return (result == 0) ? false : true;
+    }
 }

@@ -420,7 +420,7 @@
     <div class="btn_wrap text-center">
         <button type="button" onclick="goList()" class="btn btn-secondary">뒤로가기</button>
         <button type="button" class="btn btn-primary" onclick="save()">저장하기</button>
-        <button type="button" class="btn btn-primary" onclick="testf()">테스트</button>
+<%--        <button type="button" class="btn btn-primary" onclick="testf()">테스트</button>--%>
     </div>
 </div>
 </div>
