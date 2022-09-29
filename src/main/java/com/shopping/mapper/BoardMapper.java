@@ -3,6 +3,7 @@ package com.shopping.mapper;
 import com.paging.CommonParams;
 import com.shopping.dto.BasketDto;
 import com.shopping.dto.BoardResponseDto;
+import com.shopping.dto.OrderDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public interface BoardMapper {
     /**
      * 장바구니 목록
      */
-    List<BasketDto> findBasketAll(Long userId);
+    List<BasketDto> findBasketAll(OrderDto orderDto);
 
     /**
      * 장바구니 삭제

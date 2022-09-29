@@ -10,8 +10,11 @@ import com.shopping.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -91,5 +94,25 @@ public class BoardApiController {
     public boolean deleteShopbasket(@PathVariable final List<Long> ordId) {
         System.out.println(ordId);
         return boardService.basketdelete(ordId);
+    }
+
+    /**
+     * 주문번호 생성(PAY api 호출 시 주문번호가 필요함으로 서버쪽에서 먼저 생성 필요함)
+     */
+    @GetMapping("/make/ordNo")
+    public String makeOrdNo() {
+        //현재시간
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+        String date = now.format(formatter);
+
+        //랜덤 6자리
+        int ordNo = (int)(Math.random() * (999999 - 100000 + 1)) + 100000;
+        String random = Integer.toString(ordNo);
+
+        //시간 + 랜덤
+        String result = date + random;
+
+        return result;
     }
 }

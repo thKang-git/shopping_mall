@@ -90,7 +90,7 @@
     </select>
 
     <!-- 장바구니 리스트 -->    
-    <select id="findBasketAll" parameterType="long" resultType="com.shopping.dto.BasketDto">
+    <select id="findBasketAll" parameterType="com.shopping.dto.OrderDto" resultType="com.shopping.dto.BasketDto">
         SELECT
             a.ordId          AS ordId
              ,a.board_idx    AS boardIdx
@@ -103,11 +103,22 @@
              ,b.delete_yn    AS deleteYn
              ,c.file_path    AS filePath
         FROM order_s AS a
-                 INNER JOIN shopboard AS b
-                            ON a.board_idx = b.id
-                 LEFT OUTER JOIN attach AS c
-                                 ON b.id = c.board_idx
-        WHERE user_id = #{userId}
+        INNER JOIN shopboard AS b
+        ON a.board_idx = b.id
+        LEFT OUTER JOIN attach AS c
+        ON b.id = c.board_idx
+
+        WHERE 1=1
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="ordId != null">
+            and ordId in(
+            <foreach collection="ordId" item="ordId" index="index" separator=",">
+            #{ordId}
+            </foreach>
+            )
+        </if>
         ORDER BY a.created_date
     </select>
 

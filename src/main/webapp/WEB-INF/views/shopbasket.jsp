@@ -234,11 +234,33 @@
     </table>
     <div class="cart__mainbtns">
         <button class="cart__bigorderbtn left" onclick="goList()">쇼핑 계속하기</button>
-        <button class="cart__bigorderbtn right">주문하기</button>
+        <button class="cart__bigorderbtn right" onclick="goPay()">주문하기</button>
     </div>
 </section>
 </body>
 <script type="text/javascript">
+
+    /**
+     * 결제 화면
+     */
+    function goPay() {
+        const chk_val = [];
+
+        $('input[name=checkbasket]:checked').each(function (){
+            var chkdata = $(this).val();
+            chk_val.push(chkdata);
+        })
+        if (chk_val == null || chk_val == "") {
+            alert("상품을 선택해주세요");
+            return;
+        }
+
+        if(chk_val.length != 0) {
+
+            let url = "/shopping/pay.do?ordId=" + chk_val;
+            location.href = url;
+        }
+    }
 
     /**
      * 목록 리턴

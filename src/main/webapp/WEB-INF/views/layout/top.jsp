@@ -13,7 +13,7 @@
     <link rel="icon" type="image/x-icon" href="${path}/assets/favicon.ico?v=<%=System.currentTimeMillis() %>" />
     <link href="${path}/css/styles.css?v=<%=System.currentTimeMillis() %>" rel="stylesheet" />
     <link rel="stylesheet" href="${path}/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css?v=<%=System.currentTimeMillis() %>">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

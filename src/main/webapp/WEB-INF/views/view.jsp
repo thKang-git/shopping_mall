@@ -5,7 +5,7 @@
 <%--<head>--%>
 <%--    <script src="${path}/js/scripts.js?v=<%=System.currentTimeMillis() %>"></script>--%>
 <%--</head>--%>
-
+<%--https://blog.naver.com/PostView.naver?blogId=hon0760&logNo=222272266697&parentCategoryNo=&categoryNo=42&viewDate=&isShowPopularPosts=true&from=search--%>
 <body>
 <!-- Product section-->
 <section class="py-5">

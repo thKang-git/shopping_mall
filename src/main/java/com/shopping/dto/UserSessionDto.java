@@ -14,6 +14,7 @@ public class UserSessionDto implements Serializable {
     private String password;
     private String username;
     private String email;
+    private String phone_no;
     private Role role;
     private LocalDateTime createdDate; // 생성일
 
@@ -25,6 +26,7 @@ public class UserSessionDto implements Serializable {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.role = user.getRole();
+        this.phone_no = user.getPhone_no();
         this.createdDate = user.getCreatedDate();
     }
 }

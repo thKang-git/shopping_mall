@@ -4,10 +4,7 @@ import com.paging.CommonParams;
 import com.paging.Pagination;
 import com.shopping.domain.Board;
 import com.shopping.domain.BoardRepository;
-import com.shopping.dto.AmazonS3Dto;
-import com.shopping.dto.BasketDto;
-import com.shopping.dto.BoardRequestDto;
-import com.shopping.dto.BoardResponseDto;
+import com.shopping.dto.*;
 import com.exception.CustomException;
 import com.exception.ErrorCode;
 import com.shopping.mapper.AmazonS3Mapper;
@@ -138,8 +135,10 @@ public class BoardService {
     /**
      * 장바구니 목록
      */
-    public List<BasketDto> basketlist(Long userId) {
-        List<BasketDto> list = boardMapper.findBasketAll(userId);
+    public List<BasketDto> basketlist(OrderDto orderDto) {
+        System.out.println("@@@@@@@@@@@@@@");
+        System.out.println(orderDto);
+        List<BasketDto> list = boardMapper.findBasketAll(orderDto);
         return list;
     }
 
