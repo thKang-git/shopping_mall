@@ -265,22 +265,27 @@
     let ordNo = "";
     let resultPrice = 0;
     let ordName = "";
+    let boardIdx = [];
+    let ordPrice = [];
 
     /**
      * 결제하기
      */
     function pay() {
         markOrderNo()
-        if(ordNo != "" && ordNo != null){
-            tossPayments.requestPayment('카드', {
-                amount: resultPrice,
-                orderId: ordNo,
-                orderName: ordName,
-                customerName: '${user}',
-                successUrl: 'http://localhost:8081/pay/success',
-                failUrl: 'http://localhost:8081/pay/fail',
-            })
-        }
+        saveOrder()
+
+        <%--if(ordNo != "" && ordNo != null){--%>
+        <%--    tossPayments.requestPayment('카드', {--%>
+        <%--        amount: resultPrice,--%>
+        <%--        orderId: ordNo,--%>
+        <%--        orderName: ordName,--%>
+        <%--        customerName: '${user}',--%>
+        <%--        customerEmail: '${userEmail}',--%>
+        <%--        successUrl: 'http://localhost:8081/pay/success',--%>
+        <%--        failUrl: 'http://localhost:8081/pay/fail',--%>
+        <%--    })--%>
+        <%--}--%>
     }
 
     /**
@@ -308,9 +313,12 @@
         <c:forEach items="${Paylist}" var="item">
             listOrdName.push("${item.title}"); //상품명도 같이 보냄
             list.push("${item.price}");
+            boardIdx.push("${item.boardIdx}");
             resultPrice += ${item.price};
+            ordPrice.push(${item.price});
         </c:forEach>
 
+        console.log(${Paylist});
         ordName = listOrdName[0] + " 상품 외 " + (listOrdName.length - 1) + "건";
 
         let Sumprice = resultPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -319,6 +327,33 @@
         document.getElementById('payresults').innerHTML = html;
         document.getElementById('payresult').innerHTML = htmlRe;
     }
+
+    // 주문건 전송
+    function saveOrder() {
+
+        let data = {
+            "ord_no" : ordNo,
+            "address" : document.getElementById('msg3').value,
+            "user_id" : ${userIdx},
+            "price_sum" : resultPrice,
+            "board_idx" : boardIdx,
+            "price" : ordPrice,
+            "qty" : [1]
+        }
+
+        $.ajax({
+        type: "POST",
+        contentType: 'application/json',
+        url: "/pay/saveOrder",
+        async: false,
+        data: JSON.stringify(data),
+        dataType: "json",
+        success: function(response) {
+                console.log(response)
+            }
+        })
+    }
+
 
     function goBack() {
         window.history.back();

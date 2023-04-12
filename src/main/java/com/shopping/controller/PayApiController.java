@@ -7,10 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.shopping.dto.OrderInfo;
+import org.springframework.web.bind.annotation.*;
 import sun.net.www.http.HttpClient;
 
 import java.net.URI;
@@ -18,6 +16,15 @@ import java.net.URI;
 @RestController
 @RequestMapping("/pay")
 public class PayApiController {
+
+    // 주문건 저장
+    @PostMapping("/saveOrder")
+    public String saveOrder(@RequestBody OrderInfo orderInfo) {
+
+        System.out.println(orderInfo);
+
+        return "?";
+    }
 
     @GetMapping("/success")
     public String success(@RequestParam(value = "paymentKey") String paymentKey,
