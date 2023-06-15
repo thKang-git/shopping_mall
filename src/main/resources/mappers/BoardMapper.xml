@@ -64,13 +64,13 @@
         , a.delete_yn
         , a.created_date
         , a.modified_date
-        , MIN(b.id) AS attach_id
+        , b.id AS attach_id
         , b.file_path
         FROM shopboard AS a
         LEFT OUTER JOIN attach AS b
         ON a.id = b.board_idx
         <include refid="conditions" />
-        GROUP BY
+        ORDER BY
         a.id DESC, a.created_date DESC
         LIMIT #{pagination.limitStart}, #{recordPerPage}
     </select>
