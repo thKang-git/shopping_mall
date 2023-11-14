@@ -250,8 +250,8 @@
     </table>
 
     <div class="cart__mainbtns">
-        <button class="cart__bigorderbtn left" onclick="goBack()">뒤로가기</button>
-        <button class="cart__bigorderbtn right" onclick="pay()">결제하기</button>
+        <button class="cart__bigorderbtn left" onclick="goBack();return false;">뒤로가기</button>
+        <button class="cart__bigorderbtn right" onclick="pay();return false;">결제하기</button>
     </div>
 </section>
 <script type="text/javascript">
@@ -275,17 +275,17 @@
         markOrderNo()
         saveOrder()
 
-        <%--if(ordNo != "" && ordNo != null){--%>
-        <%--    tossPayments.requestPayment('카드', {--%>
-        <%--        amount: resultPrice,--%>
-        <%--        orderId: ordNo,--%>
-        <%--        orderName: ordName,--%>
-        <%--        customerName: '${user}',--%>
-        <%--        customerEmail: '${userEmail}',--%>
-        <%--        successUrl: 'http://localhost:8081/pay/success',--%>
-        <%--        failUrl: 'http://localhost:8081/pay/fail',--%>
-        <%--    })--%>
-        <%--}--%>
+        if(ordNo != "" && ordNo != null){
+            tossPayments.requestPayment('카드', {
+                amount: resultPrice,
+                orderId: ordNo,
+                orderName: ordName,
+                customerName: '${user}',
+                customerEmail: '${userEmail}',
+                successUrl: 'http://localhost:8081/pay/success',
+                failUrl: 'http://localhost:8081/pay/fail',
+            })
+        }
     }
 
     /**
@@ -318,7 +318,7 @@
             ordPrice.push(${item.price});
         </c:forEach>
 
-        console.log(${Paylist});
+        console.log("TEST : " + "${Paylist}");
         ordName = listOrdName[0] + " 상품 외 " + (listOrdName.length - 1) + "건";
 
         let Sumprice = resultPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
