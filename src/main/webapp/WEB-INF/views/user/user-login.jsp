@@ -60,11 +60,11 @@
         text-align: center;
     }
     .social-icons img {
-        width: 30px ;
+        width: 70px ;
         cursor: pointer;
     }
     .input-group {
-        top: 180px;
+        top: 190px;
         position: absolute;
         width: 280px;
         transition: .5s;
@@ -88,7 +88,7 @@
         border: 0;
         outline: none;
         border-radius: 30px;
-        margin-top: 10px;
+        margin-top: 30px;
     }
     .checkbox {
         margin: 30px 10px 30px 0;
@@ -118,14 +118,14 @@
             <button type="button" class="togglebtn" onclick="register()">REGISTER</button>
         </div>
         <div class="social-icons">
-            <img src="${path}/assets/fb.png" alt="facebook">
-            <img src="${path}/assets/tw.png" alt="twitter">
-            <img src="${path}/assets/gl.png" alt="google">
+            <!-- <img src="${path}/assets/fb.png" alt="facebook"> -->
+            <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/po02NYzz2D8gThPJVBtnwNB6-XTnFggeKOfFtFdZgba-BO4HRPH77R-wAk9DpMfO/n/axmznzthugde/b/NETUAD_BUCKET1/o/study-shopping%2Fpngegg.png">
         </div>
+
         <form id="login" action="/loginProc" method="post" class="input-group">
             <input type="text" name="username" class="input-field" placeholder="User ID" required>
             <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
-            <input type="checkbox" class="checkbox"><span>Remember Password</span>
+            <!-- <%--            <input type="checkbox" class="checkbox"><span>Remember Password</span>--%> -->
             <button class="submit">Login</button>
         </form>
         <form id="register" action="/auth/joinProcapi" method="post" class="input-group">
